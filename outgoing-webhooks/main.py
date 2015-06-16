@@ -22,7 +22,7 @@ class MainHandler(webapp2.RequestHandler):
     def post(self):
         text = self.request.get('text')
         users = text.split()[1:] or ['imai']
-        message = ' '.join(['<@{0}|{0}>'.format(user) for user in users])
+        message = ' '.join([u'<@{0}|{0}>'.format(user) for user in users])
         self.response.write(u'{{"text": "{0} あくしろ"}}'.format(message))
 
 app = webapp2.WSGIApplication([
