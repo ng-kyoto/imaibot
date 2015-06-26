@@ -10,10 +10,13 @@ module.exports = (robot) ->
     user = msg.match[1] or 'imai'
     min = msg.match[2]
     count = msg.match[3] or 3
-    msg.send "@#{user} あくしろ"
+    repeat = 0
     if min?
+      msg.send "<@#{user}|#{user}> あくしろ (0/#{count})"
       f = () ->
-        msg.send "@#{user} まだか"
-        if --count <= 0
+        msg.send "<@#{user}|#{user}> まだか (#{++repeat}/#{count})"
+        if repeat >= count
           clearInterval id
       id = setInterval f, min * 60000
+    else
+      msg.send "<@#{user}|#{user}> あくしろ"
