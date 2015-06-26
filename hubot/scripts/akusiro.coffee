@@ -17,6 +17,14 @@ parseTime = (str) ->
   return null
 
 
+message = () ->
+  val = Math.random()
+  if val < 1 / 3
+    return 'まだか'
+  if val < 2 / 3
+    return 'はよ'
+  return 'あくしろ'
+
 module.exports = (robot) ->
   robot.respond /akusiro(?:(?:\s+)(\S+)(?:(?:\s+)every(?:\s+)(\S+)(?:(?:\s+)(\d+))?)?)?/, (msg) ->
     user = msg.match[1] or 'imai'
@@ -26,7 +34,7 @@ module.exports = (robot) ->
     if time?
       msg.send "<@#{user}|#{user}> あくしろ (0/#{count})"
       f = () ->
-        msg.send "<@#{user}|#{user}> まだか (#{++repeat}/#{count})"
+        msg.send "<@#{user}|#{user}> #{message()} (#{++repeat}/#{count})"
         if repeat >= count
           clearInterval id
       id = setInterval f, time
